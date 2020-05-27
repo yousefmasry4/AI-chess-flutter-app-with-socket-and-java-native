@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_button/flutter_progress_button.dart';
+
+import 'board.dart';
 class Splash extends StatefulWidget {
   @override
   _splash createState() => new _splash();
@@ -159,6 +161,10 @@ class _splash extends State<Splash> {
                         onPressed: () async {
                           return () {
                             responseFromNativeCode();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => board()),
+                            );
                           };
                         },
                         animate: true,

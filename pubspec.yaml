@@ -17,17 +17,16 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
 dependencies:
-  chess: ">=0.6.5 <1.0.0"
-  chess_vectors_flutter: ">=1.0.6 <2.0.0"
-  scoped_model: ">=1.0.0 <2.0.0"
+  flutter_chess_board: ^0.2.3
+  chess_vectors_flutter: ^1.0.6
 
   flutter_progress_button: '^0.6.2'
   flutter:
     sdk: flutter
-
-environment:
-    sdk: ">2.0.0 <3.0.0"
 
 dev_dependencies:
 
@@ -43,25 +42,10 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
-  assets:
-
-    - images/chess_board.png
-    - images/brown_board.png
-    - images/2.0x/brown_board.png
-    - images/3.0x/brown_board.png
-    - images/orange_board.png
-    - images/2.0x/orange_board.png
-    - images/3.0x/orange_board.png
-    - images/green_board.png
-    - images/2.0x/green_board.png
-    - images/3.0x/green_board.png
-    - images/dark_brown_board.png
-    - images/2.0x/dark_brown_board.png
-    - images/3.0x/dark_brown_board.png
+   assets:
     - images/back.png
+  #  - images/a_dot_ham.jpeg
+
   #
   # For details regarding assets in packages, see
   # https://flutter.io/assets-and-images/#from-packages
