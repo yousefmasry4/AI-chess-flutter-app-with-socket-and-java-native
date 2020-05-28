@@ -29,9 +29,10 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-
+  chess_vectors_flutter: ^1.0.12
   sockjs_client_wrapper: ^1.0.14
   web_socket_channel: ^1.0.15
+  path_provider: ^1.5.1
   flutter_test:
     sdk: flutter
 
@@ -44,6 +45,20 @@ flutter:
   # To add assets to your package, add an assets section, like this:
    assets:
     - images/back.png
+    - images/screen.jpg
+    - images/like.gif
+    - images/love.gif
+    - images/haha.gif
+    - images/wow.gif
+    - images/sad.gif
+    - images/angry.gif
+    - images/angry2.png
+    - images/love2.png
+    - images/haha2.png
+    - images/wow2.png
+    - images/sad2.png
+    - images/ic_like.png
+    - images/ic_like_fill.png
   #  - images/a_dot_ham.jpeg
 
   #
