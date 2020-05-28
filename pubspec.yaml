@@ -46,6 +46,7 @@ flutter:
    assets:
     - images/back.png
     - images/screen.jpg
+    - images/chess.gif
     - images/like.gif
     - images/love.gif
     - images/haha.gif

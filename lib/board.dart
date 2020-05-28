@@ -90,9 +90,9 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
   List<String> gameMoves = [];
   var flipBoardOnMove = true;
   final WebSocketChannel channel = IOWebSocketChannel.connect(
-    Uri(scheme: "ws", host: "192.168.43.101", port: 8080, path: "/socket"),
+    Uri(scheme: "ws", host: "192.168.43.152", port: 8080, path: "/socket"),
   );
-  bool turn = true;
+  bool turn = false;
   static List<double> timeDelays = [1.0, 2.0, 3.0, 4.0, 5.0];
   int selectedIndex = 0;
 
@@ -102,17 +102,17 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
       selectedIndex = index;
     });
   }
-
+  int he_img=0;
 
 
   @override
   void initState() {
     super.initState();
-    my_chess_out.a=4;
-    my_chess_out.b=3;
-    my_chess_out.c=5;
-    my_chess_out.d=10;
-    my_chess_out.e=7;
+   // my_chess_out.a=1;
+    my_chess_out.b=2;
+  //  my_chess_out.c=5;
+    my_chess_out.d=1;
+    my_chess_out.e=0;
     my_chess_out.f=8;
 
     // Button Like
@@ -139,6 +139,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     controller = ChessBoardController();
     channel.stream.listen((event) {
+
       print(event);
       var x = event.split(",");
       print("jjjjjjjjjj");
@@ -154,6 +155,11 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
           print("from server $event");
           print("and $x");
           print(turn);
+        });
+      }else if(event.toString().length == 2){
+        setState(() {
+          print("reaction from out $event");
+          he_img=int.parse(event[1]);
         });
       }
     });
@@ -187,15 +193,18 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
           title: Text("Play with a friend"),
           backgroundColor: Colors.transparent,
         ),
+
         body: Stack(
               children: <Widget>[
-
-
                 Center(
-                  child: Image(
+                  child:RotatedBox(
+                    quarterTurns: 5,
+                    child: Image(
                     image: AssetImage('images/screen.jpg'),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.fitWidth,
+
                   ),
+    )
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -220,114 +229,211 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 110,top: 40),
+                  padding: EdgeInsets.only(left:5,top:  MediaQuery.of(context).size.height-( MediaQuery.of(context).size.width -160)),
+                  child: Row(
+                    children: [
+                      he_renderBtnLike(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30,left: 100,right: 30),
+                        child:Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            he_chess_out.a>0?Column(
+                              children: [
+                                WhitePawn(size: 30),
+                                he_chess_out.a>1?Text(
+                                  "x"+he_chess_out.a.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white,
+                                      backgroundColor:Colors.black12
+                                  ),
+                                ):Container(),
+                              ],
+                            ):Container(),
+                            he_chess_out.b>0?Column(
+                              children: [
+                                WhiteKnight(size: 30),
+                                he_chess_out.b>0?Text(
+                                  "x"+he_chess_out.b.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white,
+                                      backgroundColor:Colors.black12
+                                  ),
+                                ):Container(),
+                              ],
+                            ):Container(),
+                            he_chess_out.c>0?Column(
+                              children: [
+                                WhiteBishop(size: 30),
+                                he_chess_out.c>0?Text(
+                                  "x"+he_chess_out.c.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white,
+                                      backgroundColor:Colors.black12
+                                  ),
+                                ):Container(),
+                              ],
+                            ):Container(),
+                            he_chess_out.d>0?Column(
+                              children: [
+                                WhiteRook(size: 30),
+                                he_chess_out.d>0?Text(
+                                  "x"+he_chess_out.d.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white,
+                                      backgroundColor:Colors.black12
+                                  ),
+                                ):Container(),
+                              ],
+                            ):Container(),
+                            he_chess_out.e>0?Column(
+                              children: [
+                                WhiteQueen(size: 30),
+                                he_chess_out.e>0?Text(
+                                  "x"+he_chess_out.e.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white,
+                                      backgroundColor:Colors.black12
+                                  ),
+                                ):Container(),
+                              ],
+                            ):Container(),
+                            he_chess_out.f>0?Column(
+                              children: [
+                                WhiteKing(size: 30),
+                                he_chess_out.f>0?Text(
+                                  "x"+he_chess_out.f.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white,
+                                      backgroundColor:Colors.black12
+                                  ),
+                                ):Container(),
+                              ],
+                            ):Container(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 30,left: 120,right: 30),
                   child:Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      my_chess_out.a>0?Stack(
+                      my_chess_out.a>0?Column(
                         children: [
-                          WhitePawn(size: 35),
-                          Padding(
-                            padding: EdgeInsets.only(left: 18,top: 5),
-                            child:my_chess_out.a>1?Text(
-                              my_chess_out.a.toString(),
-                              style: TextStyle(
-                                fontSize: 25,
+                          WhitePawn(size: 30),
+                          my_chess_out.a>1?Text(
+                            "x"+my_chess_out.a.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.white,
+                              backgroundColor:Colors.black12
+                            ),
+                          ):Container(),
+                        ],
+                      ):Container(),
+                      my_chess_out.b>0?Column(
+                        children: [
+                          WhiteKnight(size: 30),
+                          my_chess_out.b>0?Text(
+                            "x"+my_chess_out.b.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
                                 color: Colors.white,
-                                backgroundColor: Colors.grey,
-                                fontWeight: FontWeight.bold
-                              ),
-                            ):Container(),
-                          )
+                                backgroundColor:Colors.black12
+                            ),
+                          ):Container(),
                         ],
                       ):Container(),
-                      my_chess_out.b>0?Stack(
+                      my_chess_out.c>0?Column(
                         children: [
-                          WhiteKnight(size: 35),
-                          Padding(
-                            padding: EdgeInsets.only(left: 18,top: 5),
-                            child:my_chess_out.b>1?Text(
-                              my_chess_out.b.toString(),
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  backgroundColor: Colors.grey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ):Container(),
-                          )
+                          WhiteBishop(size: 30),
+                          my_chess_out.c>0?Text(
+                            "x"+my_chess_out.c.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.white,
+                                backgroundColor:Colors.black12
+                            ),
+                          ):Container(),
                         ],
                       ):Container(),
-                      my_chess_out.c>0?Stack(
+                      my_chess_out.d>0?Column(
                         children: [
-                          WhiteBishop(size: 35),
-                          Padding(
-                            padding: EdgeInsets.only(left: 18,top: 5),
-                            child:my_chess_out.c>1?Text(
-                              my_chess_out.c.toString(),
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  backgroundColor: Colors.grey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ):Container(),
-                          )
+                          WhiteRook(size: 30),
+                          my_chess_out.d>0?Text(
+                            "x"+my_chess_out.d.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.white,
+                                backgroundColor:Colors.black12
+                            ),
+                          ):Container(),
                         ],
                       ):Container(),
-                      my_chess_out.d>0?Stack(
+                      my_chess_out.e>0?Column(
                         children: [
-                          WhiteRook(size: 35),
-                          Padding(
-                            padding: EdgeInsets.only(left: 18,top: 5),
-                            child:my_chess_out.d>1?Text(
-                              my_chess_out.d.toString(),
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  backgroundColor: Colors.grey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ):Container(),
-                          )
+                          WhiteQueen(size: 30),
+                          my_chess_out.e>0?Text(
+                            "x"+my_chess_out.e.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.white,
+                                backgroundColor:Colors.black12
+                            ),
+                          ):Container(),
                         ],
                       ):Container(),
-                      my_chess_out.e>1?Stack(
+                      my_chess_out.f>0?Column(
                         children: [
-                          WhiteQueen(size: 35),
-                          Padding(
-                            padding: EdgeInsets.only(left: 18,top: 5),
-                            child:my_chess_out.e>1?Text(
-                              my_chess_out.e.toString(),
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  backgroundColor: Colors.grey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ):Container(),
-                          )
-                        ],
-                      ):Container(),
-                      my_chess_out.f>0?Stack(
-                        children: [
-                          WhiteKing(size: 35),
-                          Padding(
-                            padding: EdgeInsets.only(left: 18,top: 5),
-                            child:my_chess_out.f>1?Text(
-                              my_chess_out.f.toString(),
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  backgroundColor: Colors.grey,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ):Container(),
-                          )
+                          WhiteKing(size: 30),
+                          my_chess_out.f>0?Text(
+                            "x"+my_chess_out.f.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.white,
+                                backgroundColor:Colors.black12
+                            ),
+                          ):Container(),
                         ],
                       ):Container(),
                     ],
                   ),
                 ),
+
                 GestureDetector(
                   child: Column(
                     children: <Widget>[
@@ -468,7 +574,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
                         // Area of the content can drag
                         // decoration:  BoxDecoration(border: Border.all(color: Colors.grey)),
                         width: double.infinity,
-                        height: 400.0,
+                        height: 500.0,
                       ),
 
                     ],
@@ -509,7 +615,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
         },
         chessBoardController: controller,
         enableUserMoves: true,
-        whiteSideTowardsUser: true,
+        whiteSideTowardsUser: false,
 
         //   whiteSideTowardsUser:flipBoardOnMove ? gameMoves.length % 2 == 0 ? true : false : true,
       ),
@@ -1220,19 +1326,31 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
             child: GestureDetector(
               onTapDown: onTapDownBtn,
               onTapUp: onTapUpBtn,
-           //   onTap: onTapBtn,
+              onTap: onTapBtn,
               child: Container(
                 child: Center(
                   child: Row(
                     children: <Widget>[
                       // Icon like
-
-
-                      // Text like
-                      Container(
+                      ! isDragging && whichIconUserChoose >0 ?Transform.scale(
+                        child: Transform.rotate(
+                          child: Image.asset(
+                            getImageIconBtn(),
+                            width: 80.0,
+                            height: 80.0,
+                            fit: BoxFit.contain,
+                            color: getTintColorIconBtn(),
+                          ),
+                          angle:
+                          !isLongPress ? handleOutputRangeTiltIconLike(tiltIconLikeInBtn2.value) : tiltIconLikeInBtn.value,
+                        ),
+                        scale:
+                        !isLongPress ? handleOutputRangeZoomInIconLike(zoomIconLikeInBtn2.value) : zoomIconLikeInBtn.value,
+                      )
+                     :Container(
                         child: Transform.scale(
                           child: Text(
-                            "Reactions",
+                            "You",
                             style: TextStyle(
                               color: getColorTextBtn(),
                               fontSize: 14.0,
@@ -1248,7 +1366,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
                 ),
-                padding: EdgeInsets.all(10.0),
+          //      padding: EdgeInsets.all(10.0),
                 color: Colors.transparent,
               ),
             ),
@@ -1265,6 +1383,62 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
       ),
     );
   }
+
+  Widget he_renderBtnLike() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+
+      child: Column(
+        children: [
+          Container(
+            child: GestureDetector(
+
+              child: Container(
+                child: Center(
+                  child: Row(
+                    children: <Widget>[
+                      // Icon like
+                      he_img != 0?
+                          Image.asset(
+                            getImageIconBtn(he_img: he_img),
+                            width: 80.0,
+                            height: 80.0,
+
+                          )
+
+                          :Container(
+                        child: Text(
+                            "opponent",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                ),
+                //      padding: EdgeInsets.all(10.0),
+                color: Colors.transparent,
+              ),
+            ),
+            width: 100.0,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100.0),
+              color: Colors.white,
+              border: Border.all(color: getColorBorderBtn()),
+            ),
+        //    margin: EdgeInsets.only(top: 0.0),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   String getTextBtn() {
     if (isDragging) {
@@ -1311,7 +1485,25 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
     }
   }
 
-  String getImageIconBtn() {
+  String getImageIconBtn({int he_img=0}) {
+    if(he_img != 0){
+      switch (he_img) {
+        case 1:
+          return 'images/ic_like_fill.png';
+        case 2:
+          return 'images/love.gif';
+        case 3:
+          return 'images/haha.gif';
+        case 4:
+          return 'images/wow.gif';
+        case 5:
+          return 'images/sad.gif';
+        case 6:
+          return 'images/angry.gif';
+        default:
+          return 'images/like.gif';
+      }
+    }
     if (!isLongPress && isLiked) {
       return 'images/ic_like_fill.png';
     } else if (!isDragging) {
@@ -1319,17 +1511,17 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
         case 1:
           return 'images/ic_like_fill.png';
         case 2:
-          return 'images/love2.png';
+          return 'images/love.gif';
         case 3:
-          return 'images/haha2.png';
+          return 'images/haha.gif';
         case 4:
-          return 'images/wow2.png';
+          return 'images/wow.gif';
         case 5:
-          return 'images/sad2.png';
+          return 'images/sad.gif';
         case 6:
-          return 'images/angry2.png';
+          return 'images/angry.gif';
         default:
-          return 'images/ic_like.png';
+          return 'images/like.gif';
       }
     } else {
       return 'images/ic_like.png';
@@ -1480,6 +1672,10 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
 
     animControlIconWhenRelease.reset();
     animControlIconWhenRelease.forward();
+    if(whichIconUserChoose !=0 && !isDragging){
+      channel.sink.add("s$whichIconUserChoose");
+      print("s$whichIconUserChoose");
+    }
   }
 
   // when user short press the button

@@ -47,11 +47,11 @@ class _splash extends State<Splash> {
             child: Stack(
               children: [
                 Container(
-                  height: 500,
-                  child: Image.asset("images/back.png"),
+                  height: 450,
+                  child: Image.asset("images/chess.gif"),
                 ),
                 Container(
-                  height: 750,
+                  height: 650,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.bottomCenter,
@@ -85,7 +85,7 @@ class _splash extends State<Splash> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top:MediaQuery.of(context).size.height*0.4),
+                  padding: EdgeInsets.only(top:70),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -116,7 +116,7 @@ class _splash extends State<Splash> {
                         ],
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height*0.05,
+                        height: MediaQuery.of(context).size.height*0.32,
                       ),
                       ProgressButton(
 
