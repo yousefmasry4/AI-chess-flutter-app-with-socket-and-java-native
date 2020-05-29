@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter_chess_board: ^0.2.3
   chess_vectors_flutter: ^1.0.6
-
+  cupertino_icons: ^0.1.3
   flutter_progress_button: '^0.6.2'
   flutter:
     sdk: flutter
@@ -43,7 +43,9 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
+   uses-material-design: true
    assets:
+    - images/load.gif
     - images/back.png
     - images/screen.jpg
     - images/chess.gif

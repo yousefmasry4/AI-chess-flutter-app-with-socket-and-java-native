@@ -13,11 +13,26 @@ class chess_out{
 }
 
 class board extends StatefulWidget {
+  // ignore: non_constant_identifier_names
+  final bool me_or_he;
+  final id;
+
+
+  // ignore: non_constant_identifier_names
+  const board({Key key, this.me_or_he, this.id}) : super(key: key);
   @override
-  _PlayGamePageState createState() => _PlayGamePageState();
+  _PlayGamePageState createState() => _PlayGamePageState(me_or_he);
 }
 
 class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
+  final WebSocketChannel channel =
+  IOWebSocketChannel.connect(
+    Uri(
+        scheme: "ws",
+        host: "192.168.43.152",
+        port: 8080,
+        path: "/socket"),
+  );
   chess_out my_chess_out=new chess_out();
 
   chess_out he_chess_out=new chess_out();
@@ -89,12 +104,11 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
   ChessBoardController controller;
   List<String> gameMoves = [];
   var flipBoardOnMove = true;
-  final WebSocketChannel channel = IOWebSocketChannel.connect(
-    Uri(scheme: "ws", host: "192.168.43.152", port: 8080, path: "/socket"),
-  );
-  bool turn = false;
+
   static List<double> timeDelays = [1.0, 2.0, 3.0, 4.0, 5.0];
   int selectedIndex = 0;
+  bool turn;
+  _PlayGamePageState( this.turn);
 
   onSpeedSettingPress(int index) {
     timeDilation = timeDelays[index];
@@ -135,7 +149,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
 
     // Icon when release
     initAnimationIconWhenRelease();
-    channel.sink.add("go");
+    channel.sink.add(widget.me_or_he?"set_player1,${widget.id}":"set_player2,${widget.id}");
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     controller = ChessBoardController();
     channel.stream.listen((event) {
@@ -144,11 +158,11 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
       var x = event.split(",");
       print("jjjjjjjjjj");
       print(x[0].toString().split("")[1]);
-      if (event.toString().length == 5) {
+      if (event.toString().length == 6) {
         //     x[0]=x[0][0]+(9-int.parse(x[0].toString().split("")[1])).toString();
         //  x[1]=x[1][0]+(9-int.parse(x[1].toString().split("")[1])).toString();
         print(x[0]);
-        controller.makeMove(x[0], x[1]);
+        controller.makeMove(x[1], x[2]);
         bool aa = !turn;
         setState(() {
           turn = aa;
@@ -604,7 +618,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
             print(turn);
           });
           print(api_board.last_move);
-          channel.sink.add(api_board.last_move);
+          channel.sink.add("m,${api_board.last_move}");
         },
         onCheckMate: (winColor) {
           _showDialog(winColor: winColor);
@@ -615,7 +629,8 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
         },
         chessBoardController: controller,
         enableUserMoves: true,
-        whiteSideTowardsUser: false,
+        whiteSideTowardsUser:widget.me_or_he,
+
 
         //   whiteSideTowardsUser:flipBoardOnMove ? gameMoves.length % 2 == 0 ? true : false : true,
       ),
@@ -1673,8 +1688,10 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
     animControlIconWhenRelease.reset();
     animControlIconWhenRelease.forward();
     if(whichIconUserChoose !=0 && !isDragging){
-      channel.sink.add("s$whichIconUserChoose");
+      channel.sink.add("e$whichIconUserChoose");
       print("s$whichIconUserChoose");
+    }else{
+      channel.sink.add("e0");
     }
   }
 
