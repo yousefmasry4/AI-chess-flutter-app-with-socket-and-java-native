@@ -6,6 +6,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/io.dart';
 
 import 'board.dart';
+import 'main.dart';
 class get_id extends StatefulWidget {
   final id;
 
@@ -22,7 +23,7 @@ class _get_idState extends State<get_id> {
   IOWebSocketChannel.connect(
     Uri(
         scheme: "ws",
-        host: "192.168.43.152",
+        host:MyApp.ip,
         port: 8080,
         path: "/socket"),
   );

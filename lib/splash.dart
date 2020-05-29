@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_button/flutter_progress_button.dart';
+import 'package:untitled8/main.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -215,7 +216,7 @@ class _splash extends State<Splash> {
                                   IOWebSocketChannel.connect(
                                 Uri(
                                     scheme: "ws",
-                                    host: "192.168.43.152",
+                                    host: MyApp.ip,
                                     port: 8080,
                                     path: "/socket"),
                               );
@@ -330,7 +331,7 @@ class _splash extends State<Splash> {
                                   IOWebSocketChannel.connect(
                                     Uri(
                                         scheme: "ws",
-                                        host: "192.168.43.152",
+                                        host: MyApp.ip,
                                         port: 8080,
                                         path: "/socket"),
                                   );

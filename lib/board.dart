@@ -8,6 +8,8 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:chess_vectors_flutter/chess_vectors_flutter.dart';
 import 'dart:async';
 
+import 'main.dart';
+
 class chess_out{
   int a=0,b=0,c=0,d=0,e=0,f=0;
 }
@@ -29,7 +31,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
   IOWebSocketChannel.connect(
     Uri(
         scheme: "ws",
-        host: "192.168.43.152",
+        host: MyApp.ip,
         port: 8080,
         path: "/socket"),
   );
