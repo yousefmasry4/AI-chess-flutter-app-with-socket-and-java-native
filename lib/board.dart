@@ -31,7 +31,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
   IOWebSocketChannel.connect(
     Uri(
         scheme: "ws",
-        host: MyApp.ip,
+        host: "192.168.43.152",
         port: 8080,
         path: "/socket"),
   );
@@ -159,8 +159,7 @@ class _PlayGamePageState extends State<board> with TickerProviderStateMixin {
       print(event);
       var x = event.split(",");
       print("jjjjjjjjjj");
-      print(x[0].toString().split("")[1]);
-      if (event.toString().length == 6) {
+      if (event.toString().length == 7) {
         //     x[0]=x[0][0]+(9-int.parse(x[0].toString().split("")[1])).toString();
         //  x[1]=x[1][0]+(9-int.parse(x[1].toString().split("")[1])).toString();
         print(x[0]);

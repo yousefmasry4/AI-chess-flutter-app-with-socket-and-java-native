@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 
 Future<void> main() async {
   api_board.rerun();
-  final data=await http.get('https://raw.githubusercontent.com/yousefmasry4/AI-chess-flutter-app-with-socket-and-java-native/master/ip');
-  MyApp.ip=data.body;
+ // final data=await http.get('https://raw.githubusercontent.com/yousefmasry4/AI-chess-flutter-app-with-socket-and-java-native/master/ip');
+ // MyApp.ip=data.body.replaceAll("%0A", "");
   print(MyApp.ip);
   return runApp(MyApp());
 }

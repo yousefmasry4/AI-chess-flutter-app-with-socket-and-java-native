@@ -23,7 +23,7 @@ class _get_idState extends State<get_id> {
   IOWebSocketChannel.connect(
     Uri(
         scheme: "ws",
-        host:MyApp.ip,
+        host:"192.168.43.152",
         port: 8080,
         path: "/socket"),
   );
@@ -32,7 +32,7 @@ class _get_idState extends State<get_id> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    channel.sink.add("wait"+widget.id);
+    channel.sink.add("wait,"+widget.id);
     channel.stream.listen((event) {
         if(event == "gogogo"){
           channel.sink.close();

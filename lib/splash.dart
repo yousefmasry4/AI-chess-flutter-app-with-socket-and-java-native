@@ -216,7 +216,7 @@ class _splash extends State<Splash> {
                                   IOWebSocketChannel.connect(
                                 Uri(
                                     scheme: "ws",
-                                    host: MyApp.ip,
+                                    host: "192.168.43.152",
                                     port: 8080,
                                     path: "/socket"),
                               );
@@ -331,7 +331,7 @@ class _splash extends State<Splash> {
                                   IOWebSocketChannel.connect(
                                     Uri(
                                         scheme: "ws",
-                                        host: MyApp.ip,
+                                        host: "192.168.43.152",
                                         port: 8080,
                                         path: "/socket"),
                                   );
@@ -343,7 +343,7 @@ class _splash extends State<Splash> {
                                       Navigator. pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => board(me_or_he: true,id: code,),
+                                          builder: (context) => board(me_or_he: false,id: code,),
                                         ),
                                       );
                                     }
